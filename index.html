@@ -93,15 +93,21 @@
 
         <section id="step-3" class="hidden mt-6 space-y-6 bg-slate-50 p-6 rounded-xl">
             
-            <div class="flex justify-between items-center bg-white p-4 rounded-xl shadow-sm mb-6">
+            <div class="flex flex-col sm:flex-row justify-between items-center bg-white p-4 rounded-xl shadow-sm mb-6 gap-3">
                 <span class="text-emerald-700 font-medium flex items-center gap-1">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                     測評成功！資料已同步儲存至班級就業追蹤後台。
                 </span>
-                <button onclick="downloadResultsAsImage()" class="bg-emerald-700 text-white px-4 py-2 rounded-lg hover:bg-emerald-800 text-sm font-medium shadow flex items-center gap-1.5">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                    下載完整優勢圖卡 (存入手機相簿)
-                </button>
+                <div class="flex gap-2">
+                    <button onclick="downloadResultsAsImage()" class="bg-emerald-700 text-white px-4 py-2 rounded-lg hover:bg-emerald-800 text-sm font-medium shadow flex items-center gap-1.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        下載完整優勢圖卡
+                    </button>
+                    <button onclick="window.location.reload()" class="bg-slate-600 text-white px-4 py-2 rounded-lg hover:bg-slate-700 text-sm font-medium shadow flex items-center gap-1.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                        離開測評
+                    </button>
+                </div>
             </div>
 
             <div id="capture-container" class="space-y-6 bg-slate-50 p-6 rounded-xl border-4 border-white shadow-inner">
@@ -120,8 +126,7 @@
                             <div class="w-full max-w-[280px]">
                                 <canvas id="riasecChart"></canvas>
                             </div>
-                            <div id="elevation-badge" class="mt-4 text-xs bg-amber-50 text-amber-800 p-3 rounded-lg border border-amber-200 hidden">
-                                </div>
+                            <div id="elevation-badge" class="mt-4 text-xs bg-amber-50 text-amber-800 p-3 rounded-lg border border-amber-200 hidden"></div>
                         </div>
                     </div>
 
@@ -132,16 +137,14 @@
                                 <span class="text-xl">💼</span> 媽媽生活經歷 ➔ 轉化為履歷面試黃金金句
                             </h3>
                             <p class="text-xs text-slate-400 mb-4 resume-translated-paragraph">系統依據您的測評特質，自動幫您將「母職與家庭管理經驗」翻譯成企業人資看重的專業資產：</p>
-                            <div id="resume-sentence-content" class="bg-blue-50 text-blue-900 p-4 rounded-xl text-sm leading-relaxed border border-blue-100 resume-translated-paragraph">
-                                </div>
+                            <div id="resume-sentence-content" class="bg-blue-50 text-blue-900 p-4 rounded-xl text-sm leading-relaxed border border-blue-100 resume-translated-paragraph"></div>
                         </div>
 
                         <div class="bg-white rounded-xl shadow-md p-6 print-card">
                             <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-1 border-b pb-2">
                                 <span class="text-xl">🎯</span> 建議您可以直接切入的台灣市場常規職缺
                             </h3>
-                            <div id="job-recommendations" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                </div>
+                            <div id="job-recommendations" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                         </div>
 
                         <div class="bg-white rounded-xl shadow-md p-6 print-card">
@@ -161,19 +164,17 @@
                                     </h4>
                                     <p class="text-slate-600 pl-4 mt-1 resume-translated-paragraph">
                                         如果未來因照顧家庭的彈性需求（工時、距離考量），而妥協選擇了與主要興趣不完全相符的職務，不必氣餒！在實體課程中，我們將教導您如何透過<strong>「工作內流程優化」</strong>（例如在常規行政中加入數位工具創新），或<strong>「工作外愛好互補」</strong>的調適法，大幅降低二度就業初期的不適應感，平衡您的多元人生角色。
-                                    </p>
-                                </div>
+                                </p>
                             </div>
                         </div>
-
                     </div>
+
                 </div>
             </div>
         </section>
     </main>
 
     <script>
-        // 完整 60 題數據儲存庫 (已修正注音錯字)
         const questions = [
             { id: 1, text: "我喜歡把一件事情做完後再做另一件事。" },
             { id: 2, text: "在工作中我喜歡獨自籌劃，不願受別人干涉。" },
@@ -189,12 +190,12 @@
             { id: 12, text: "當我一個獨處時，會感到更愉快。" },
             { id: 13, text: "我喜歡在做事情前，對此事情做出細緻的安排。" },
             { id: 14, text: "我討厭修理自行車、電器一類的工作。" },
-            { id: 15, text: "我喜歡參加各種樣式的聚會。" },
+            { id: 15, text: "我喜歡參加各種各樣的聚會。" },
             { id: 16, text: "我願意從事雖然工資少、但是比較穩定的職業。" },
             { id: 17, text: "音樂能使我陶醉。" },
             { id: 18, text: "我辦事很少思前想後。" },
             { id: 19, text: "我喜歡經常請示上級。" },
-            { id: 20, text: "我喜歡需要運用「注」意力的游戲。" }, // 修正錯字為「注」意力
+            { id: 20, text: "我喜歡需要運用「注」意力的游戲。" }, // 修正：注意力錯字修正
             { id: 21, text: "我很難做那種需要持續集中註意力的工作。" },
             { id: 22, text: "我喜歡親自動手製作一些東西，從中得到樂趣。" },
             { id: 23, text: "我的動手能力很差。" },
@@ -237,6 +238,7 @@
             { id: 60, text: "我喜歡在人事部門工作。" }
         ];
 
+        // 修正：徹底將資料庫中金句建議內容的 ** 替換為網頁 strong 標籤
         const typeDetails = {
             S: {
                 name: "社會型 (Social)",
@@ -254,7 +256,7 @@
                 name: "企業型 (Enterprising)",
                 sentence: "「我在生活社群中具備強大的資源整合力、專案說服力與團購談判技巧。我習慣以高度目標導向的思維推動計劃落地，在面對商業競爭、微型創業與多部門溝通時具有天生的影響力與主動突破障礙的企圖心。」",
                 jobs: ["業務銷售代表", "公關行銷專員", "門市店鋪營運主管", "專案微型創業管理"],
-                upskilling: "建議可以選讀「數位行銷與精準社群導購」、「商業專案管理(PMP)實務\"或「職場說服與高階談判心理學」。"
+                upskilling: "建議可以選讀「數位行銷與精準社群導購」、「商業專案管理(PMP)實務」或「職場說服與高階談判心理學」。"
             },
             A: {
                 name: "藝術型 (Artistic)",
@@ -388,12 +390,17 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
             displayReport(payload, sortedTypes);
 
-            // 填入您部署的 GAS 網址進行後台同步
+            // 更新：改為相容性最高、並帶有正式 Web App 的資料發送設定
             fetch("https://script.google.com/macros/s/AKfycbx50Mm7KSCKjKAc7fFKHrW_1QHA-HwkuWJKmsfCik1roY_X_qfwvolTc85gtaHfb0dH/exec", {
                 method: "POST",
-                body: JSON.stringify(payload),
-                mode: "no-cors"
-            }).then(() => console.log("Data successfully synced to Google Sheets CRM.")).catch(err => console.error("Sheets sync error: ", err));
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "text/plain"
+                },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                console.log("Data successfully synced to Google Sheets CRM.");
+            }).catch(err => console.error("Sheets sync error: ", err));
         }
 
         function displayReport(data, sortedTypes) {
@@ -405,7 +412,6 @@
             const totalScore = Object.values(data.scores).reduce((sum, score) => sum + score, 0);
             const badge = document.getElementById("elevation-badge");
             if (totalScore >= 38) {
-                // 修正：修正為標準 HTML 與常規字重，不包含任何外部 Markdown 標籤
                 badge.innerHTML = `🌟 <strong>解鎖多元通才潛力：</strong>您的總體雷達圖面積較大（興趣剖面高度較高），這說明您在生活中被迫演練的多重角色，已經內化為強大的職涯適應彈性，非常適合作為團隊內的跨部門整合通才！`;
                 badge.classList.remove("hidden");
             } else { badge.classList.add("hidden"); }
