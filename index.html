@@ -114,14 +114,14 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     
                     <div class="space-y-6 lg:col-span-1">
-                        <div class="bg-white rounded-xl shadow-md p-6 print-card text-center">
+                        <div class="bg-white rounded-xl shadow-md p-6 text-center">
                             <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider">您的專屬霍蘭德職涯代碼</h3>
                             <div id="report-holland-code" class="text-5xl font-extrabold text-blue-900 my-4 tracking-widest">---</div>
                             <p class="text-sm font-medium text-slate-700 border-t pt-3">學員姓名：<span id="report-name" class="font-bold">---</span></p>
                             <p class="text-xs text-slate-400 mt-1">班別：<span id="report-class">---</span></p>
                         </div>
 
-                        <div class="bg-white rounded-xl shadow-md p-6 print-card flex flex-col items-center">
+                        <div class="bg-white rounded-xl shadow-md p-6 flex flex-col items-center">
                             <h3 class="text-base font-bold text-slate-800 mb-4 self-start border-b pb-2 w-full">RIASEC 職業興趣特質光譜</h3>
                             <div class="w-full max-w-[280px]">
                                 <canvas id="riasecChart"></canvas>
@@ -132,7 +132,7 @@
 
                     <div class="space-y-6 lg:col-span-2">
                         
-                        <div class="bg-white rounded-xl shadow-md p-6 print-card">
+                        <div class="bg-white rounded-xl shadow-md p-6">
                             <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center gap-1 border-b pb-2">
                                 <span class="text-xl">💼</span> 媽媽生活經歷 ➔ 轉化為履歷面試黃金金句
                             </h3>
@@ -140,14 +140,14 @@
                             <div id="resume-sentence-content" class="bg-blue-50 text-blue-900 p-4 rounded-xl text-sm leading-relaxed border border-blue-100 resume-translated-paragraph"></div>
                         </div>
 
-                        <div class="bg-white rounded-xl shadow-md p-6 print-card">
+                        <div class="bg-white rounded-xl shadow-md p-6">
                             <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-1 border-b pb-2">
                                 <span class="text-xl">🎯</span> 建議您可以直接切入的台灣市場常規職缺
                             </h3>
                             <div id="job-recommendations" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                         </div>
 
-                        <div class="bg-white rounded-xl shadow-md p-6 print-card">
+                        <div class="bg-white rounded-xl shadow-md p-6">
                             <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center gap-1 border-b pb-2">
                                 <span class="text-xl">🚀</span> 後續搭配課程：轉型技能進修與職場重塑策略
                             </h3>
@@ -164,11 +164,12 @@
                                     </h4>
                                     <p class="text-slate-600 pl-4 mt-1 resume-translated-paragraph">
                                         如果未來因照顧家庭的彈性需求（工時、距離考量），而妥協選擇了與主要興趣不完全相符的職務，不必氣餒！在實體課程中，我們將教導您如何透過<strong>「工作內流程優化」</strong>（例如在常規行政中加入數位工具創新），或<strong>「工作外愛好互補」</strong>的調適法，大幅降低二度就業初期的不適應感，平衡您的多元人生角色。
-                                </p>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </section>
@@ -190,12 +191,12 @@
             { id: 12, text: "當我一個獨處時，會感到更愉快。" },
             { id: 13, text: "我喜歡在做事情前，對此事情做出細緻的安排。" },
             { id: 14, text: "我討厭修理自行車、電器一類的工作。" },
-            { id: 15, text: "我喜歡參加各種各樣的聚會。" },
+            { id: 15, text: "我喜歡參加各種樣式的聚會。" },
             { id: 16, text: "我願意從事雖然工資少、但是比較穩定的職業。" },
             { id: 17, text: "音樂能使我陶醉。" },
             { id: 18, text: "我辦事很少思前想後。" },
             { id: 19, text: "我喜歡經常請示上級。" },
-            { id: 20, text: "我喜歡需要運用「注」意力的游戲。" }, // 修正：注意力錯字修正
+            { id: 20, text: "我喜歡需要運用「注」意力的游戲。" },
             { id: 21, text: "我很難做那種需要持續集中註意力的工作。" },
             { id: 22, text: "我喜歡親自動手製作一些東西，從中得到樂趣。" },
             { id: 23, text: "我的動手能力很差。" },
@@ -238,7 +239,6 @@
             { id: 60, text: "我喜歡在人事部門工作。" }
         ];
 
-        // 修正：徹底將資料庫中金句建議內容的 ** 替換為網頁 strong 標籤
         const typeDetails = {
             S: {
                 name: "社會型 (Social)",
@@ -268,7 +268,7 @@
                 name: "研究型 (Investigative)",
                 sentence: "「我具備極強的邏輯思考、數據分析與獨立專題鑽研能力。面對複雜的外部資訊與龐大資料庫時，習慣進行客觀推理、成分利弊分析，擅長搜集深度知識並為企業決策層提供理性的邏輯架構與最佳解方。」",
                 jobs: ["市場資訊搜集助理", "健康與營養管理顧問", "數據核對與處理助理", "研究型專案助理"],
-                upskilling: "建議可以選讀「Python數據分析基礎班」、「市場調查與資訊搜集實務」或「健康管理與營養分析師認證課程」。"
+                upskilling: "建議可以選讀「Python數據分析基礎班」、「市場調查與資訊搜集實務\"或「健康管理與營養分析師認證課程」。"
             },
             R: {
                 name: "實用型 (Realistic)",
@@ -390,8 +390,8 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
             displayReport(payload, sortedTypes);
 
-            // 更新：改為相容性最高、並帶有正式 Web App 的資料發送設定
-            fetch("https://script.google.com/macros/s/AKfycbx50Mm7KSCKjKAc7fFKHrW_1QHA-HwkuWJKmsfCik1roY_X_qfwvolTc85gtaHfb0dH/exec", {
+            // POST 資料連線至您的 GAS 網址
+            fetch("https://script.google.com/macros/s/AKfycbzMVaFnFwx0im2MEl3TfuD58u_za7MMO2jeUJ9kJyf8nfkD_6x39wXNF-bcdoGn_9oM/exec", {
                 method: "POST",
                 mode: "no-cors",
                 headers: {
