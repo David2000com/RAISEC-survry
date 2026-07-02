@@ -8,13 +8,16 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas"></script>
     <style>
-        /* 確保履歷金句與說明文字呈現流暢的一般字重 */
-        .resume-translated-paragraph { font-weight: normal; }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; }
+            .print-card { border: 1px solid #e2e8f0; box-shadow: none !important; }
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-700 font-sans antialiased min-h-screen">
 
-    <header class="bg-gradient-to-r from-blue-800 to-indigo-900 text-white shadow-md">
+    <header class="bg-gradient-to-r from-blue-800 to-indigo-900 text-white shadow-md no-print">
         <div class="max-w-6xl mx-auto px-4 py-5 flex justify-between items-center">
             <h1 class="text-xl font-bold tracking-wide">職涯導航 AI 應用線上課程</h1>
             <span class="text-sm bg-blue-700 px-3 py-1 rounded-full text-blue-100">二度就業婦女專屬版</span>
@@ -67,7 +70,7 @@
             </form>
         </section>
 
-        <section id="step-2" class="hidden max-w-4xl mx-auto mt-6">
+        <section id="step-2" class="hidden max-w-4xl mx-auto mt-6 no-print">
             <div class="bg-white rounded-xl shadow-md p-6">
                 <div class="flex justify-between items-center mb-4 border-b pb-4">
                     <div>
@@ -91,26 +94,26 @@
             </div>
         </section>
 
-        <section id="step-3" class="hidden mt-6 space-y-6 bg-slate-50 p-6 rounded-xl">
+        <section id="step-3" class="hidden mt-6 space-y-6">
             
-            <div class="flex flex-col sm:flex-row justify-between items-center bg-white p-4 rounded-xl shadow-sm mb-6 gap-3">
-                <span class="text-emerald-700 font-medium flex items-center gap-1">
+            <div class="flex flex-col sm:flex-row justify-between items-center bg-white p-4 rounded-xl shadow-sm gap-3 no-print">
+                <span class="text-emerald-700 font-medium flex items-center gap-1 text-sm">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                    測評成功！資料已同步儲存至班級就業追蹤後台。
+                    測評成功！資料已同步儲存至後台 CRM 系統。
                 </span>
-                <div class="flex gap-2">
-                    <button onclick="downloadResultsAsImage()" class="bg-emerald-700 text-white px-4 py-2 rounded-lg hover:bg-emerald-800 text-sm font-medium shadow flex items-center gap-1.5">
+                <div class="flex gap-2 w-full sm:w-auto">
+                    <button onclick="downloadResultsAsImage()" class="flex-1 sm:flex-initial bg-emerald-700 text-white px-4 py-2 rounded-lg hover:bg-emerald-800 text-sm font-medium shadow flex items-center justify-center gap-1">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                         下載完整優勢圖卡
                     </button>
-                    <button onclick="window.location.reload()" class="bg-slate-600 text-white px-4 py-2 rounded-lg hover:bg-slate-700 text-sm font-medium shadow flex items-center gap-1.5">
+                    <button onclick="window.location.reload()" class="flex-1 sm:flex-initial bg-rose-600 text-white px-4 py-2 rounded-lg hover:bg-rose-700 text-sm font-medium shadow flex items-center justify-center gap-1">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
                         離開測評
                     </button>
                 </div>
             </div>
 
-            <div id="capture-container" class="space-y-6 bg-slate-50 p-6 rounded-xl border-4 border-white shadow-inner">
+            <div id="capture-container" class="space-y-6 bg-slate-50 p-4 rounded-xl">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     
                     <div class="space-y-6 lg:col-span-1">
@@ -163,7 +166,7 @@
                                         <span>•</span> 職場調和與工作重塑建議：
                                     </h4>
                                     <p class="text-slate-600 pl-4 mt-1 resume-translated-paragraph">
-                                        如果未來因照顧家庭的彈性需求（工時、距離考量），而妥協選擇了與主要興趣不完全相符的職務，不必氣餒！在實體課程中，我們將教導您如何透過<strong>「工作內流程優化」</strong>（例如在常規行政中加入數位工具創新），或<strong>「工作外愛好互補」</strong>的調適法，大幅降低二度就業初期的不適應感，平衡您的多元人生角色。
+                                        如果未來因照顧家庭的彈性需求（工時、距離考量），而妥協選擇了與主要興趣不完全相符的職務，不必氣餒！在實體課程中，我們將教導您如何透過<strong class="font-bold">「工作內流程優化」</strong>（例如在常規行政中加入數位工具創新），或<strong class="font-bold">「工作外愛好互補」</strong>的調適法，大幅降低二度就業初期的不適應感，平衡您的多元人生角色。
                                     </p>
                                 </div>
                             </div>
@@ -171,6 +174,13 @@
 
                     </div>
                 </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl shadow-sm text-center no-print">
+                <button onclick="window.location.reload()" class="w-full sm:w-auto bg-slate-600 hover:bg-slate-700 text-white font-medium px-8 py-2.5 rounded-lg text-sm shadow inline-flex items-center justify-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                    完成查閱，離開測評系統
+                </button>
             </div>
         </section>
     </main>
@@ -198,7 +208,7 @@
             { id: 19, text: "我喜歡經常請示上級。" },
             { id: 20, text: "我喜歡需要運用「注」意力的游戲。" },
             { id: 21, text: "我很難做那種需要持續集中註意力的工作。" },
-            { id: 22, text: "我喜歡親自動手製作一些東西，從中得到樂趣。" },
+            { id: 22, text: "我喜歡親自動手製作一些東西，從中得到樂趣 rhythms。" },
             { id: 23, text: "我的動手能力很差。" },
             { id: 24, text: "和不熟悉的人交談對我來說毫不困難。" },
             { id: 25, text: "和別人談判時，我總是很容易放棄自己的觀點。" },
@@ -268,13 +278,13 @@
                 name: "研究型 (Investigative)",
                 sentence: "「我具備極強的邏輯思考、數據分析與獨立專題鑽研能力。面對複雜的外部資訊與龐大資料庫時，習慣進行客觀推理、成分利弊分析，擅長搜集深度知識並為企業決策層提供理性的邏輯架構與最佳解方。」",
                 jobs: ["市場資訊搜集助理", "健康與營養管理顧問", "數據核對與處理助理", "研究型專案助理"],
-                upskilling: "建議可以選讀「Python數據分析基礎班」、「市場調查與資訊搜集實務\"或「健康管理與營養分析師認證課程」。"
+                upskilling: "建議可以選讀「Python數據分析基礎班」、「市場調查與資訊搜集實務」或「健康管理與營養分析師認證課程」。"
             },
             R: {
                 name: "實用型 (Realistic)",
                 sentence: "「我具備優秀的動手實作力、物理協調力與務實執行精神。面對具體任務與設備操作時充滿耐性與精確度，偏好以行動直接解決實體問題而非空談，能高效達成看得到、高質量的具體技術產出。」",
                 jobs: ["餐飲烘焙技術員", "綠色生機農業技術員", "產品測試與設備維修員", "電子硬體裝配操作"],
-                upskilling: "建議可以選讀「勞動部餐飲烘焙丙級證照班」、「生機園藝與生技農業實務」或「基礎硬體操作與產品測試工程班」。"
+                upskilling: "建議可以選讀「勞動部餐飲烘焙丙級證照班」、「生機園藝與生技農業實務\"或「基礎硬體操作與產品測試工程班」。"
             }
         };
 
@@ -390,17 +400,14 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
             displayReport(payload, sortedTypes);
 
-            // POST 資料連線至您的 GAS 網址
-            fetch("https://script.google.com/macros/s/AKfycbzMVaFnFwx0im2MEl3TfuD58u_za7MMO2jeUJ9kJyf8nfkD_6x39wXNF-bcdoGn_9oM/exec", {
+            fetch("https://script.google.com/macros/s/AKfycbx50Mm7KSCKjKAc7fFKHrW_1QHA-HwkuWJKmsfCik1roY_X_qfwvolTc85gtaHfb0dH/exec", {
                 method: "POST",
                 mode: "no-cors",
                 headers: {
                     "Content-Type": "text/plain"
                 },
                 body: JSON.stringify(payload)
-            }).then(() => {
-                console.log("Data successfully synced to Google Sheets CRM.");
-            }).catch(err => console.error("Sheets sync error: ", err));
+            }).then(() => console.log("Data successfully synced to Google Sheets CRM.")).catch(err => console.error("Sheets sync error: ", err));
         }
 
         function displayReport(data, sortedTypes) {
@@ -455,7 +462,6 @@
             });
         }
 
-        // 下載 PNG 圖片功能
         function downloadResultsAsImage() {
             const container = document.getElementById("capture-container");
             const userName = studentInfo.name || "學員";
