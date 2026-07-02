@@ -389,7 +389,7 @@
             displayReport(payload, sortedTypes);
 
             // 填入您部署的 GAS 網址進行後台同步
-            fetch("YOUR_GAS_WEB_APP_URL", {
+            fetch("https://script.google.com/macros/s/AKfycbx50Mm7KSCKjKAc7fFKHrW_1QHA-HwkuWJKmsfCik1roY_X_qfwvolTc85gtaHfb0dH/exec", {
                 method: "POST",
                 body: JSON.stringify(payload),
                 mode: "no-cors"
