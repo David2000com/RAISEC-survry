@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>職涯導航：霍蘭德職業興趣探索測評系統</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas"></script>
+    <style>
+        /* 確保履歷金句與說明文字呈現流暢的一般字重 */
+        .resume-translated-paragraph { font-weight: normal; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-700 font-sans antialiased min-h-screen">
+
+    <header class="bg-gradient-to-r from-blue-800 to-indigo-900 text-white shadow-md">
+        <div class="max-w-6xl mx-auto px-4 py-5 flex justify-between items-center">
+            <h1 class="text-xl font-bold tracking-wide">職涯導航 AI 應用線上課程</h1>
+            <span class="text-sm bg-blue-700 px-3 py-1 rounded-full text-blue-100">二度就業婦女專屬版</span>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        
+        <section id="step-1" class="bg-white rounded-xl shadow-md p-6 max-w-2xl mx-auto mt-6">
+            <h2 class="text-2xl font-bold text-slate-800 mb-2 border-b pb-3">受測者基本資料登記</h2>
+            <p class="text-sm text-slate-500 mb-6">歡迎參加職涯探索！本系統資料將同步上傳至教學輔導後台，以方便班導師後續為您提供精準的就業媒合與追蹤服務。</p>
+            
+            <form id="info-form" class="space-y-4" onsubmit="startAssessment(event)">
+                <div>
+                    <label class="block text-sm font-semibold text-slate-600 mb-1">學員姓名 <span class="text-red-500">*</span></label>
+                    <input type="text" id="user-name" required class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-600">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-600 mb-1">手機號碼 <span class="text-red-500">*</span></label>
+                        <input type="tel" id="user-phone" placeholder="0912345678" pattern="09\d{8}" title="請輸入10碼純數字手機號碼，請勿包含 - 符號" required class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-600">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-600 mb-1">電子信箱 <span class="text-red-500">*</span></label>
+                        <input type="email" id="user-email" placeholder="example@email.com" required class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-600">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-600 mb-1">目前就讀期別 / 班別 <span class="text-red-500">*</span></label>
+                    <select id="class-name" required class="w-full border border-slate-300 rounded-lg px-4 py-2 bg-white focus:outline-none focus:border-blue-600">
+                        <option value="">-- 請選擇專班班別 --</option>
+                        <option value="115期二度就業婦女職涯專專班">115期二度就業婦女職涯專班</option>
+                        <option value="115期全職媽媽重返職場AI應用班">115期全職媽媽重返職場AI應用班</option>
+                        <option value="其他專案輔導個案">其他專案輔導個案</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-600 mb-1">全職家庭照顧 / 履歷空白時間 <span class="text-red-500">*</span></label>
+                    <select id="gap-years" required class="w-full border border-slate-300 rounded-lg px-4 py-2 bg-white focus:outline-none focus:border-blue-600">
+                        <option value="">-- 請選擇空白時間 --</option>
+                        <option value="無空白/一年以內">一年以內</option>
+                        <option value="全職家庭照顧 1-3 年">1 - 3 年</option>
+                        <option value="全職家庭照顧 3-5 年">3 - 5 年</option>
+                        <option value="全職家庭照顧 5 年以上">5 年以上</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-blue-800 text-white font-medium py-3 rounded-lg hover:bg-blue-900 transition duration-200 mt-4 shadow-md">
+                    進入職業興趣探索問卷
+                </button>
+            </form>
+        </section>
+
+        <section id="step-2" class="hidden max-w-4xl mx-auto mt-6">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="flex justify-between items-center mb-4 border-b pb-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800">霍蘭德職業興趣自測量表</h2>
+                        <p class="text-xs text-slate-400 mt-1">作答說明：請根據對每一題目的第一印象作答，答案沒有好壞、對錯之分。</p>
+                    </div>
+                    <span id="page-indicator" class="text-sm font-medium bg-slate-100 text-slate-600 px-3 py-1 rounded-full">第 1 / 6 頁</span>
+                </div>
+
+                <div id="questions-container" class="divide-y divide-slate-100">
+                    </div>
+
+                <div class="flex justify-between items-center mt-6 pt-4 border-t border-slate-100">
+                    <button id="prev-btn" onclick="changePage(-1)" class="px-5 py-2 border border-slate-300 rounded-lg text-sm font-medium hover:bg-slate-50 text-slate-600 disabled:opacity-50 disabled:pointer-events-none">
+                        上一頁
+                    </button>
+                    <button id="next-btn" onclick="changePage(1)" class="px-5 py-2 bg-blue-800 hover:bg-blue-900 text-white rounded-lg text-sm font-medium shadow">
+                        下一頁
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="step-3" class="hidden mt-6 space-y-6 bg-slate-50 p-6 rounded-xl">
+            
+            <div class="flex justify-between items-center bg-white p-4 rounded-xl shadow-sm mb-6">
+                <span class="text-emerald-700 font-medium flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    測評成功！資料已同步儲存至班級就業追蹤後台。
+                </span>
+                <button onclick="downloadResultsAsImage()" class="bg-emerald-700 text-white px-4 py-2 rounded-lg hover:bg-emerald-800 text-sm font-medium shadow flex items-center gap-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    下載完整優勢圖卡 (存入手機相簿)
+                </button>
+            </div>
+
+            <div id="capture-container" class="space-y-6 bg-slate-50 p-6 rounded-xl border-4 border-white shadow-inner">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <div class="space-y-6 lg:col-span-1">
+                        <div class="bg-white rounded-xl shadow-md p-6 print-card text-center">
+                            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider">您的專屬霍蘭德職涯代碼</h3>
+                            <div id="report-holland-code" class="text-5xl font-extrabold text-blue-900 my-4 tracking-widest">---</div>
+                            <p class="text-sm font-medium text-slate-700 border-t pt-3">學員姓名：<span id="report-name" class="font-bold">---</span></p>
+                            <p class="text-xs text-slate-400 mt-1">班別：<span id="report-class">---</span></p>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-md p-6 print-card flex flex-col items-center">
+                            <h3 class="text-base font-bold text-slate-800 mb-4 self-start border-b pb-2 w-full">RIASEC 職業興趣特質光譜</h3>
+                            <div class="w-full max-w-[280px]">
+                                <canvas id="riasecChart"></canvas>
+                            </div>
+                            <div id="elevation-badge" class="mt-4 text-xs bg-amber-50 text-amber-800 p-3 rounded-lg border border-amber-200 hidden">
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6 lg:col-span-2">
+                        
+                        <div class="bg-white rounded-xl shadow-md p-6 print-card">
+                            <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center gap-1 border-b pb-2">
+                                <span class="text-xl">💼</span> 媽媽生活經歷 ➔ 轉化為履歷面試黃金金句
+                            </h3>
+                            <p class="text-xs text-slate-400 mb-4 resume-translated-paragraph">系統依據您的測評特質，自動幫您將「母職與家庭管理經驗」翻譯成企業人資看重的專業資產：</p>
+                            <div id="resume-sentence-content" class="bg-blue-50 text-blue-900 p-4 rounded-xl text-sm leading-relaxed border border-blue-100 resume-translated-paragraph">
+                                </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-md p-6 print-card">
+                            <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-1 border-b pb-2">
+                                <span class="text-xl">🎯</span> 建議您可以直接切入的台灣市場常規職缺
+                            </h3>
+                            <div id="job-recommendations" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-md p-6 print-card">
+                            <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center gap-1 border-b pb-2">
+                                <span class="text-xl">🚀</span> 後續搭配課程：轉型技能進修與職場重塑策略
+                            </h3>
+                            <div class="space-y-4 text-sm leading-relaxed">
+                                <div>
+                                    <h4 class="font-bold text-slate-800 flex items-center gap-1 text-blue-800">
+                                        <span>•</span> 精準 Upskilling 技能進修方向推薦：
+                                    </h4>
+                                    <p id="upskilling-text" class="text-slate-600 pl-4 mt-1 resume-translated-paragraph">讀取中...</p>
+                                </div>
+                                <div class="border-t pt-3">
+                                    <h4 class="font-bold text-slate-800 flex items-center gap-1 text-indigo-800">
+                                        <span>•</span> 職場調和與工作重塑建議：
+                                    </h4>
+                                    <p class="text-slate-600 pl-4 mt-1 resume-translated-paragraph">
+                                        如果未來因照顧家庭的彈性需求（工時、距離考量），而妥協選擇了與主要興趣不完全相符的職務，不必氣餒！在實體課程中，我們將教導您如何透過<strong>「工作內流程優化」</strong>（例如在常規行政中加入數位工具創新），或<strong>「工作外愛好互補」</strong>的調適法，大幅降低二度就業初期的不適應感，平衡您的多元人生角色。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 完整 60 題數據儲存庫 (已修正注音錯字)
+        const questions = [
+            { id: 1, text: "我喜歡把一件事情做完後再做另一件事。" },
+            { id: 2, text: "在工作中我喜歡獨自籌劃，不願受別人干涉。" },
+            { id: 3, text: "在集體討論中，我往往保持沉默。" },
+            { id: 4, text: "我喜歡做戲劇、音樂、歌舞、新聞採訪等方面的工作。" },
+            { id: 5, text: "每次寫信我都一揮而就，不再重覆。" },
+            { id: 6, text: "我經常不停地思考某一問題，直到想出正確的答案。" },
+            { id: 7, text: "對別人借我的和我借別人的東西，我都能記得很清楚。" },
+            { id: 8, text: "我喜歡抽象思維的工作，不喜歡動手的工作。" },
+            { id: 9, text: "我喜歡成為人們註意的焦點。" },
+            { id: 10, text: "我喜歡不時地誇耀一下自己取得的好成就。" },
+            { id: 11, text: "我曾經渴望有機會參加探險。" },
+            { id: 12, text: "當我一個獨處時，會感到更愉快。" },
+            { id: 13, text: "我喜歡在做事情前，對此事情做出細緻的安排。" },
+            { id: 14, text: "我討厭修理自行車、電器一類的工作。" },
+            { id: 15, text: "我喜歡參加各種樣式的聚會。" },
+            { id: 16, text: "我願意從事雖然工資少、但是比較穩定的職業。" },
+            { id: 17, text: "音樂能使我陶醉。" },
+            { id: 18, text: "我辦事很少思前想後。" },
+            { id: 19, text: "我喜歡經常請示上級。" },
+            { id: 20, text: "我喜歡需要運用「注」意力的游戲。" }, // 修正錯字為「注」意力
+            { id: 21, text: "我很難做那種需要持續集中註意力的工作。" },
+            { id: 22, text: "我喜歡親自動手製作一些東西，從中得到樂趣。" },
+            { id: 23, text: "我的動手能力很差。" },
+            { id: 24, text: "和不熟悉的人交談對我來說毫不困難。" },
+            { id: 25, text: "和別人談判時，我總是很容易放棄自己的觀點。" },
+            { id: 26, text: "我很容易結識同性朋友。" },
+            { id: 27, text: "對於社會問題，我通常持中庸的態度。" },
+            { id: 28, text: "當我開始做一件事情後，即使碰到再多的困難，我也要執著地幹下去。" },
+            { id: 29, text: "我是一個沉靜而不易動感情的人。" },
+            { id: 30, text: "當我工作時，我喜歡避免干擾。" },
+            { id: 31, text: "我的理想是當一名科學家。" },
+            { id: 32, text: "與言情小說相比，我更喜歡推理小說。" },
+            { id: 33, text: "有些人太霸道，有時明明知道他們是對的，也要和他們對著乾。" },
+            { id: 34, text: "我愛幻想。" },
+            { id: 35, text: "我總是主動地向別人提出自己的建議。" },
+            { id: 36, text: "我喜歡使用榔頭一類的工具。" },
+            { id: 37, text: "我樂於解除別人的痛苦。" },
+            { id: 38, text: "我更喜歡自己下了賭註的比賽或游戲。" },
+            { id: 39, text: "我喜歡按部就班地完成要做的工作。" },
+            { id: 40, text: "我希望能經常換不同的工作來做。" },
+            { id: 41, text: "我總留有充裕的時間去赴約會。" },
+            { id: 42, text: "我喜歡閱讀自然科學方面的書籍和雜誌。" },
+            { id: 43, text: "如果掌握一門手藝並能以此為生，我會感到非常滿意。" },
+            { id: 44, text: "我曾渴望當一名汽車司機。" },
+            { id: 45, text: "聽別人談“家中被盜”一類的事，很難引起我的同情。" },
+            { id: 46, text: "如果待遇相同，我寧願當商品推銷員，而不願當圖書管理員。" },
+            { id: 47, text: "我討厭跟各類機械打交道。" },
+            { id: 48, text: "我小時候經常把玩具拆開，把裡面看個究竟。" },
+            { id: 49, text: "當接受新任務後，我喜歡以自己的獨特方法去完成它。" },
+            { id: 50, text: "我有文藝方面的天賦。" },
+            { id: 51, text: "我喜歡把一切安排得整整齊齊、井井有條。" },
+            { id: 52, text: "我喜歡作一名教師。" },
+            { id: 53, text: "和一群人在一起的時候，我總想不出恰當的話來說。" },
+            { id: 54, text: "看情感影片時，我常禁不住眼圈紅潤。" },
+            { id: 55, text: "我討厭學數學。" },
+            { id: 56, text: "在實驗室里獨自做實驗會令我寂寞難耐。" },
+            { id: 57, text: "對於急躁、愛發脾氣的人，我仍能以禮相待。" },
+            { id: 58, text: "遇到難解答的問題時，我常常放棄。" },
+            { id: 59, text: "大家公認我是一名勤勞踏實的、願為大家服務的人。" },
+            { id: 60, text: "我喜歡在人事部門工作。" }
+        ];
+
+        const typeDetails = {
+            S: {
+                name: "社會型 (Social)",
+                sentence: "「全職家庭照顧讓我深諳高同理心傾聽、多方衝突協調與深層心理支持。我極擅長與不同性格與背景的人群建立長期的信任關係，並能為組織內部注入穩健的人際凝聚力與溫暖的支持能量。」",
+                jobs: ["客戶關懷專員", "培訓發展助理", "人力資源特助", "非營利機構社工人員"],
+                upskilling: "建議可以選讀「高效客戶關係管理(CRM)」、「專業助人諮商溝通法」或「企業教育訓練規劃班」。"
+            },
+            C: {
+                name: "事務型 (Conventional)",
+                sentence: "「多年的日常家庭行政與多維度資產管理，鍛鍊了我敏銳的精確度、細心度與時程規劃能力。我擅長將繁雜的非結構化數據記錄歸檔，並具有極佳的流程秩序控管素養，能為團隊快速建立標準作業流程（SOP）。」",
+                jobs: ["行政管理助理", "財務會計專員", "大數據建檔與校對員", "高階專案特助"],
+                upskilling: "建議可以選讀「政府補助之商管行政專班」、「進階 Excel 與 ERP 數據處理系統」或「初級會計基礎證照班」。"
+            },
+            E: {
+                name: "企業型 (Enterprising)",
+                sentence: "「我在生活社群中具備強大的資源整合力、專案說服力與團購談判技巧。我習慣以高度目標導向的思維推動計劃落地，在面對商業競爭、微型創業與多部門溝通時具有天生的影響力與主動突破障礙的企圖心。」",
+                jobs: ["業務銷售代表", "公關行銷專員", "門市店鋪營運主管", "專案微型創業管理"],
+                upskilling: "建議可以選讀「數位行銷與精準社群導購」、「商業專案管理(PMP)實務\"或「職場說服與高階談判心理學」。"
+            },
+            A: {
+                name: "藝術型 (Artistic)",
+                sentence: "「我重視自我表達、美感敏銳度與原創思考。在家庭生活中積累了極佳的創意策劃與非僵化性問題解決能力，善於將抽象概念轉化為具備情感張力的文案或視覺符號，能為組織提供突破常規的創新點子。」",
+                jobs: ["社群小編企劃", "品牌文案企劃", "活動策展行銷助理", "才藝教學與培訓人員"],
+                upskilling: "建議可以選讀「社群小編文案爆發力培訓」、「Canva與多媒體視覺設計實務」或「品牌創意行銷與自媒體經營班」。"
+            },
+            I: {
+                name: "研究型 (Investigative)",
+                sentence: "「我具備極強的邏輯思考、數據分析與獨立專題鑽研能力。面對複雜的外部資訊與龐大資料庫時，習慣進行客觀推理、成分利弊分析，擅長搜集深度知識並為企業決策層提供理性的邏輯架構與最佳解方。」",
+                jobs: ["市場資訊搜集助理", "健康與營養管理顧問", "數據核對與處理助理", "研究型專案助理"],
+                upskilling: "建議可以選讀「Python數據分析基礎班」、「市場調查與資訊搜集實務」或「健康管理與營養分析師認證課程」。"
+            },
+            R: {
+                name: "實用型 (Realistic)",
+                sentence: "「我具備優秀的動手實作力、物理協調力與務實執行精神。面對具體任務與設備操作時充滿耐性與精確度，偏好以行動直接解決實體問題而非空談，能高效達成看得到、高質量的具體技術產出。」",
+                jobs: ["餐飲烘焙技術員", "綠色生機農業技術員", "產品測試與設備維修員", "電子硬體裝配操作"],
+                upskilling: "建議可以選讀「勞動部餐飲烘焙丙級證照班」、「生機園藝與生技農業實務」或「基礎硬體操作與產品測試工程班」。"
+            }
+        };
+
+        let studentInfo = {};
+        let answers = {}; 
+        let currentPage = 1;
+        const totalPages = 6;
+        const qPerPage = 10;
+
+        function startAssessment(e) {
+            e.preventDefault();
+            studentInfo = {
+                name: document.getElementById("user-name").value,
+                phone: document.getElementById("user-phone").value,
+                email: document.getElementById("user-email").value,
+                className: document.getElementById("class-name").value,
+                gapYears: document.getElementById("gap-years").value
+            };
+            
+            document.getElementById("step-1").classList.add("hidden");
+            document.getElementById("step-2").classList.remove("hidden");
+            renderQuestions();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById("questions-container");
+            container.innerHTML = "";
+            
+            const startIdx = (currentPage - 1) * qPerPage;
+            const endIdx = startIdx + qPerPage;
+            const pageQuestions = questions.slice(startIdx, endIdx);
+
+            pageQuestions.forEach(q => {
+                const checkedYes = answers[q.id] === true ? 'checked' : '';
+                const checkedNo = answers[q.id] === false ? 'checked' : '';
+
+                const qDiv = document.createElement("div");
+                qDiv.className = "py-4 flex flex-col md:flex-row md:items-center justify-between gap-2";
+                qDiv.innerHTML = `
+                    <div class="text-slate-800 font-medium"><span class="text-slate-400 mr-2">${q.id}.</span>${q.text}</div>
+                    <div class="flex gap-4">
+                        <label class="inline-flex items-center cursor-pointer text-sm">
+                            <input type="radio" name="q-${q.id}" value="yes" ${checkedYes} onclick="saveAnswer(${q.id}, true)" class="form-radio text-blue-800 h-4 w-4 focus:ring-blue-800">
+                            <span class="ml-1.5 font-semibold text-emerald-700">是</span>
+                        </label>
+                        <label class="inline-flex items-center cursor-pointer text-sm">
+                            <input type="radio" name="q-${q.id}" value="no" ${checkedNo} onclick="saveAnswer(${q.id}, false)" class="form-radio text-red-600 h-4 w-4 focus:ring-red-600">
+                            <span class="ml-1.5 font-semibold text-rose-600">否</span>
+                        </label>
+                    </div>
+                `;
+                container.appendChild(qDiv);
+            });
+
+            document.getElementById("page-indicator").innerText = `第 ${currentPage} / ${totalPages} 頁`;
+            document.getElementById("prev-btn").disabled = (currentPage === 1);
+            document.getElementById("next-btn").innerText = (currentPage === totalPages) ? "送出問卷並查看報告" : "下一頁";
+        }
+
+        function saveAnswer(id, val) {
+            answers[id] = val;
+        }
+
+        function changePage(direction) {
+            if (direction === 1) {
+                const startIdx = (currentPage - 1) * qPerPage;
+                for (let i = startIdx + 1; i <= startIdx + qPerPage; i++) {
+                    if (answers[i] === undefined) {
+                        alert("親愛的學員，本頁還有題目尚未作答唷，請確認後再往下一頁！");
+                        return;
+                    }
+                }
+            }
+
+            currentPage += direction;
+
+            if (currentPage > totalPages) {
+                currentPage = totalPages; 
+                submitAssessment();
+            } else {
+                renderQuestions();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function submitAssessment() {
+            const rule = {
+                R: { yes: [2,13,22,36,43], no: [14,23,44,47,48] },
+                I: { yes: [6,8,20,30,31,42], no: [21,55,56,58] },
+                A: { yes: [4,9,10,17,33,34,49,50,54], no: [32] },
+                S: { yes: [15,26,37,52,59], no: [1,12,27,45,53] },
+                E: { yes: [11,24,28,35,38,46,60], no: [3,16,25] },
+                C: { yes: [7,19,29,39,41,51,57], no: [5,18,40] }
+            };
+
+            let scores = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
+            for (let type in rule) {
+                rule[type].yes.forEach(id => { if (answers[id] === true) scores[type]++; });
+                rule[type].no.forEach(id => { if (answers[id] === false) scores[type]++; });
+            }
+
+            let sortedTypes = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
+            let hollandCode = sortedTypes[0] + sortedTypes[1] + sortedTypes[2];
+            
+            let primaryType = sortedTypes[0];
+            let resumeSentence = typeDetails[primaryType].sentence;
+
+            const payload = { ...studentInfo, scores, hollandCode, resumeSentence };
+
+            document.getElementById("step-2").classList.add("hidden");
+            document.getElementById("step-3").classList.remove("hidden");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            displayReport(payload, sortedTypes);
+
+            // 填入您部署的 GAS 網址進行後台同步
+            fetch("YOUR_GAS_WEB_APP_URL", {
+                method: "POST",
+                body: JSON.stringify(payload),
+                mode: "no-cors"
+            }).then(() => console.log("Data successfully synced to Google Sheets CRM.")).catch(err => console.error("Sheets sync error: ", err));
+        }
+
+        function displayReport(data, sortedTypes) {
+            document.getElementById("report-holland-code").innerText = data.hollandCode;
+            document.getElementById("report-name").innerText = data.name;
+            document.getElementById("report-class").innerText = data.className;
+            document.getElementById("resume-sentence-content").innerHTML = data.resumeSentence;
+
+            const totalScore = Object.values(data.scores).reduce((sum, score) => sum + score, 0);
+            const badge = document.getElementById("elevation-badge");
+            if (totalScore >= 38) {
+                // 修正：修正為標準 HTML 與常規字重，不包含任何外部 Markdown 標籤
+                badge.innerHTML = `🌟 <strong>解鎖多元通才潛力：</strong>您的總體雷達圖面積較大（興趣剖面高度較高），這說明您在生活中被迫演練的多重角色，已經內化為強大的職涯適應彈性，非常適合作為團隊內的跨部門整合通才！`;
+                badge.classList.remove("hidden");
+            } else { badge.classList.add("hidden"); }
+
+            const jobContainer = document.getElementById("job-recommendations");
+            jobContainer.innerHTML = "";
+            sortedTypes.slice(0, 2).forEach(type => {
+                const info = typeDetails[type];
+                const card = document.createElement("div");
+                card.className = "p-4 border border-slate-100 bg-slate-50 rounded-lg text-sm";
+                card.innerHTML = `
+                    <div class="font-bold text-slate-800 mb-1.5 flex items-center gap-1">
+                        <span class="w-2 h-2 rounded-full bg-blue-600"></span> 符合您的【${info.name}】特質：
+                    </div>
+                    <div class="flex flex-wrap gap-1.5 text-xs text-blue-900 font-semibold">
+                        ${info.jobs.map(j => `<span class="bg-blue-100/70 px-2 py-1 rounded">${j}</span>`).join('')}
+                    </div>
+                `;
+                jobContainer.appendChild(card);
+            });
+
+            document.getElementById("upskilling-text").innerText = typeDetails[sortedTypes[0]].upskilling;
+
+            const ctx = document.getElementById('riasecChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['R 現實', 'I 研究', 'A 藝術', 'S 社會', 'E 企業', 'C 事務'],
+                    datasets: [{
+                        data: [data.scores.R, data.scores.I, data.scores.A, data.scores.S, data.scores.E, data.scores.C],
+                        backgroundColor: 'rgba(30, 64, 175, 0.2)',
+                        borderColor: 'rgba(30, 64, 175, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(30, 64, 175, 1)'
+                    }]
+                },
+                options: {
+                    scales: { r: { angleLines: { display: true }, suggestedMin: 0, suggestedMax: 10, ticks: { stepSize: 2, display: false } } },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        // 下載 PNG 圖片功能
+        function downloadResultsAsImage() {
+            const container = document.getElementById("capture-container");
+            const userName = studentInfo.name || "學員";
+            
+            html2canvas(container, {
+                scale: 2, 
+                useCORS: true, 
+                backgroundColor: "#f8fafc", 
+                logging: false,
+                onclone: (clonedDoc) => {
+                    clonedDoc.getElementById('capture-container').style.display = 'block';
+                }
+            }).then(canvas => {
+                const imgData = canvas.toDataURL("image/png", 1.0);
+                const downloadLink = document.createElement("a");
+                downloadLink.href = imgData;
+                downloadLink.download = `霍蘭德職涯導航優勢圖卡_${userName}.png`;
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+            });
+        }
+    </script>
+</body>
+</html>
